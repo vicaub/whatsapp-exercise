@@ -1,28 +1,133 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-            android:layout_width="fill_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:background="@drawable/background_picture">
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
                   android:id="@+id/registration"
                   android:layout_width="fill_parent"
-                  android:layout_height="fill_parent"
+                  android:layout_height="wrap_content"
                   android:orientation="vertical">
 
-
-
-
-
-        <Button
-            android:id="@+id/editregistrationButton"
+        <TextView
+            android:id="@+id/login_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dip"
-            android:layout_marginRight="10dip"
+            android:layout_marginLeft="@dimen/standard_margin"
+            android:layout_marginRight="@dimen/standard_margin"
+            android:layout_marginTop="@dimen/standard_margin"
+            android:text="Login:"
+            android:textColor="@color/orange"
+            android:textSize="@dimen/title_size" />
+
+        <EditText
+            android:id="@+id/login_input"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/standard_margin"
+            android:layout_marginRight="@dimen/standard_margin"
+            android:layout_marginTop="@dimen/standard_margin"
+            android:ems="10"
+            android:inputType="text" />
+
+        <TextView
+            android:id="@+id/password_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/standard_margin"
+            android:layout_marginRight="@dimen/standard_margin"
+            android:layout_marginTop="@dimen/big_margin"
+            android:text="Password:"
+            android:textColor="@color/orange"
+            android:textSize="@dimen/title_size" />
+
+        <EditText
+            android:id="@+id/password_input"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/standard_margin"
+            android:layout_marginRight="@dimen/standard_margin"
+            android:layout_marginTop="@dimen/standard_margin"
+            android:ems="10"
+            android:inputType="textPassword" />
+
+        <TextView
+            android:id="@+id/name_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/standard_margin"
+            android:layout_marginRight="@dimen/standard_margin"
+            android:layout_marginTop="@dimen/big_margin"
+            android:text="Name:"
+            android:textColor="@color/orange"
+            android:textSize="@dimen/title_size" />
+
+        <EditText
+            android:id="@+id/name_input"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/standard_margin"
+            android:layout_marginRight="@dimen/standard_margin"
+            android:layout_marginTop="@dimen/standard_margin"
+            android:ems="10"
+            android:inputType="textPersonName" />
+
+        <TextView
+            android:id="@+id/surname_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/standard_margin"
+            android:layout_marginRight="@dimen/standard_margin"
+            android:layout_marginTop="@dimen/big_margin"
+            android:text="Surname:"
+            android:textColor="@color/orange"
+            android:textSize="@dimen/title_size" />
+
+        <EditText
+            android:id="@+id/surname_input"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/standard_margin"
+            android:layout_marginRight="@dimen/standard_margin"
+            android:layout_marginTop="@dimen/standard_margin"
+            android:ems="10"
+            android:inputType="textPersonName" />
+
+        <TextView
+            android:id="@+id/email_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/standard_margin"
+            android:layout_marginRight="@dimen/standard_margin"
+            android:layout_marginTop="@dimen/big_margin"
+            android:text="Email:"
+            android:textColor="@color/orange"
+            android:textSize="@dimen/title_size" />
+
+        <EditText
+            android:id="@+id/email_input"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/standard_margin"
+            android:layout_marginRight="@dimen/standard_margin"
+            android:layout_marginTop="@dimen/standard_margin"
+            android:ems="10"
+            android:inputType="textEmailSubject" />
+
+        <Button
+            android:id="@+id/register_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/standard_margin"
+            android:layout_marginStart="@dimen/standard_margin"
+            android:layout_marginTop="@dimen/big_margin"
             android:text="REGISTER"
-            android:textColor="@color/orange"/>
+            android:textColor="@color/orange" />
+
+
 
     </LinearLayout>
 

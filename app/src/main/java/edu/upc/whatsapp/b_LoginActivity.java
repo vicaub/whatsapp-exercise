@@ -14,7 +14,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import java.io.Serializable;
-import java.util.logging.Logger;
 
 import edu.upc.whatsapp.service.PushService;
 import entity.User;
@@ -32,13 +31,21 @@ public class b_LoginActivity extends Activity implements View.OnClickListener {
         super.onCreate(icicle);
         globalState = (_GlobalState)getApplication();
         setContentView(R.layout.b_login);
-        ((Button) findViewById(R.id.editloginButton)).setOnClickListener(this);
+        ((Button) findViewById(R.id.login_button)).setOnClickListener(this);
     }
 
     public void onClick(View arg0) {
-        if (arg0 == findViewById(R.id.editloginButton)) {
+        if (arg0 == findViewById(R.id.login_button)) {
 
-            //...
+
+            String login = ((EditText) findViewById(R.id.login_input_2)).getText().toString();
+            String passwrod = ((EditText) findViewById(R.id.password_input_2)).getText().toString();
+
+            this.user = new User(login, passwrod);
+
+            UserInfo userInfo = RPC.login(this.user);
+
+            Log.d("userInfo", userInfo.toString());
 
             progressDialog = ProgressDialog.show(this, "LoginActivity", "Logging into the server...");
             // if there's still a running thread doing something, we don't create a new one
@@ -55,9 +62,7 @@ public class b_LoginActivity extends Activity implements View.OnClickListener {
         public void run() {
             Message msg = handler.obtainMessage();
             Bundle b = new Bundle();
-
-            //...
-
+            b.putSerializable("userInfo", super.);
             msg.setData(b);
             handler.sendMessage(msg);
         }

@@ -58,11 +58,11 @@ public class c_RegistrationActivity extends Activity implements View.OnClickList
         super.onCreate(icicle);
         globalState = (_GlobalState)getApplication();
         setContentView(R.layout.c_registration);
-        ((Button) findViewById(R.id.editregistrationButton)).setOnClickListener(this);
+        ((Button) findViewById(R.id.register_button)).setOnClickListener(this);
     }
 
     public void onClick(View arg0) {
-        if (arg0 == findViewById(R.id.editregistrationButton)) {
+        if (arg0 == findViewById(R.id.register_button)) {
 
             //...
 
