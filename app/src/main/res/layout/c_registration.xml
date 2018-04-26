@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="@drawable/background_picture">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:id="@+id/registration"
+                  android:layout_width="fill_parent"
+                  android:layout_height="fill_parent"
+                  android:orientation="vertical">
+
+
+
+
+
+        <Button
+            android:id="@+id/editregistrationButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dip"
+            android:layout_marginRight="10dip"
+            android:text="REGISTER"
+            android:textColor="@color/orange"/>
+
+    </LinearLayout>
+
+</ScrollView>
