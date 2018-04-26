@@ -17,189 +17,189 @@ import static edu.upc.whatsapp.comms.Comms.gson;
 import static edu.upc.whatsapp.comms.Comms.url_rpc;
 
 public class RPC {
-  public static final int TIMEOUT = 5000;
-  public static UserInfo registration(User user) {
-    try {
-      URL url = new URL(url_rpc+"/entity.user/create");
-      HttpURLConnection ucon = (HttpURLConnection) url.openConnection();
-      ucon.setRequestMethod("POST");
-      ucon.setDoInput(true);
-      ucon.setDoOutput(true);
-      ucon.setConnectTimeout(TIMEOUT);
-      ucon.setRequestProperty("Content-Type", "application/json; charset=utf-8");
-      ucon.setRequestProperty("Accept", "application/json; charset=utf-8");
+    public static final int TIMEOUT = 5000;
+    public static UserInfo registration(User user) {
+        try {
+            URL url = new URL(url_rpc+"/entity.user/create");
+            HttpURLConnection ucon = (HttpURLConnection) url.openConnection();
+            ucon.setRequestMethod("POST");
+            ucon.setDoInput(true);
+            ucon.setDoOutput(true);
+            ucon.setConnectTimeout(TIMEOUT);
+            ucon.setRequestProperty("Content-Type", "application/json; charset=utf-8");
+            ucon.setRequestProperty("Accept", "application/json; charset=utf-8");
 
-      PrintWriter out = new PrintWriter(ucon.getOutputStream(), true);
-      out.println(gson.toJson(user));
+            PrintWriter out = new PrintWriter(ucon.getOutputStream(), true);
+            out.println(gson.toJson(user));
 
-      ucon.connect();
+            ucon.connect();
 
-      BufferedReader in = new BufferedReader(new InputStreamReader(ucon.getInputStream()));
-      UserInfo userInfo = gson.fromJson(in, UserInfo.class);
+            BufferedReader in = new BufferedReader(new InputStreamReader(ucon.getInputStream()));
+            UserInfo userInfo = gson.fromJson(in, UserInfo.class);
 
-      in.close();
-      out.close();
-      ucon.getInputStream().close();
+            in.close();
+            out.close();
+            ucon.getInputStream().close();
 
-      return userInfo;
+            return userInfo;
 
-    } catch (Exception e) {
-      e.printStackTrace();
-      UserInfo userInfo_exception = new UserInfo(-2);
-      userInfo_exception.setName(e.getMessage());
-      return userInfo_exception;
+        } catch (Exception e) {
+            e.printStackTrace();
+            UserInfo userInfo_exception = new UserInfo(-2);
+            userInfo_exception.setName(e.getMessage());
+            return userInfo_exception;
+        }
     }
-  }
-  public static UserInfo login(User user) {
-    try {
-      URL url = new URL(url_rpc+"/entity.user/login");
-      HttpURLConnection ucon = (HttpURLConnection) url.openConnection();
-      ucon.setRequestMethod("POST");
-      ucon.setDoInput(true);
-      ucon.setDoOutput(true);
-      ucon.setConnectTimeout(TIMEOUT);
-      ucon.setRequestProperty("Content-Type", "application/json; charset=utf-8");
-      ucon.setRequestProperty("Accept", "application/json; charset=utf-8");
+    public static UserInfo login(User user) {
+        try {
+            URL url = new URL(url_rpc+"/entity.user/login");
+            HttpURLConnection ucon = (HttpURLConnection) url.openConnection();
+            ucon.setRequestMethod("POST");
+            ucon.setDoInput(true);
+            ucon.setDoOutput(true);
+            ucon.setConnectTimeout(TIMEOUT);
+            ucon.setRequestProperty("Content-Type", "application/json; charset=utf-8");
+            ucon.setRequestProperty("Accept", "application/json; charset=utf-8");
 
-      PrintWriter out = new PrintWriter(ucon.getOutputStream(), true);
-      out.println(gson.toJson(user));
+            PrintWriter out = new PrintWriter(ucon.getOutputStream(), true);
+            out.println(gson.toJson(user));
 
-      ucon.connect();
+            ucon.connect();
 
-      BufferedReader in = new BufferedReader(new InputStreamReader(ucon.getInputStream()));
-      UserInfo userInfo = gson.fromJson(in, UserInfo.class);
+            BufferedReader in = new BufferedReader(new InputStreamReader(ucon.getInputStream()));
+            UserInfo userInfo = gson.fromJson(in, UserInfo.class);
 
-      in.close();
-      out.close();
-      ucon.getInputStream().close();
+            in.close();
+            out.close();
+            ucon.getInputStream().close();
 
-      return userInfo;
+            return userInfo;
 
-    } catch (Exception e) {
-      e.printStackTrace();
-      UserInfo userInfo_exception = new UserInfo(-2);
-      userInfo_exception.setName(e.getMessage());
-      return userInfo_exception;
+        } catch (Exception e) {
+            e.printStackTrace();
+            UserInfo userInfo_exception = new UserInfo(-2);
+            userInfo_exception.setName(e.getMessage());
+            return userInfo_exception;
+        }
     }
-  }
-  public static List<UserInfo> allUserInfos(){
-    try {
-      URL url = new URL(url_rpc+"/entity.userinfo");
-      HttpURLConnection ucon = (HttpURLConnection) url.openConnection();
-      ucon.setRequestMethod("GET");
-      ucon.setDoInput(true);
-      ucon.setConnectTimeout(TIMEOUT);
-      ucon.setRequestProperty("Content-Type", "application/json; charset=utf-8");
-      ucon.setRequestProperty("Accept", "application/json; charset=utf-8");
+    public static List<UserInfo> allUserInfos(){
+        try {
+            URL url = new URL(url_rpc+"/entity.userinfo");
+            HttpURLConnection ucon = (HttpURLConnection) url.openConnection();
+            ucon.setRequestMethod("GET");
+            ucon.setDoInput(true);
+            ucon.setConnectTimeout(TIMEOUT);
+            ucon.setRequestProperty("Content-Type", "application/json; charset=utf-8");
+            ucon.setRequestProperty("Accept", "application/json; charset=utf-8");
 
-      ucon.connect();
+            ucon.connect();
 
-      BufferedReader in = new BufferedReader(new InputStreamReader(ucon.getInputStream()));
-      UserInfo[] userArray = gson.fromJson(in, UserInfo[].class);
-      List<UserInfo> users = new ArrayList<UserInfo>();
-      users.addAll(Arrays.asList(userArray));
+            BufferedReader in = new BufferedReader(new InputStreamReader(ucon.getInputStream()));
+            UserInfo[] userArray = gson.fromJson(in, UserInfo[].class);
+            List<UserInfo> users = new ArrayList<UserInfo>();
+            users.addAll(Arrays.asList(userArray));
 
-      in.close();
-      ucon.getInputStream().close();
+            in.close();
+            ucon.getInputStream().close();
 
-      return users;
+            return users;
 
-    } catch (Exception e) {
-      e.printStackTrace();
-      return null;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
-  }
-  public static boolean postMessage(Message message) {
-    try {
-      URL url = new URL(url_rpc+"/entity.message/create");
-      HttpURLConnection ucon = (HttpURLConnection) url.openConnection();
-      ucon.setRequestMethod("POST");
-      ucon.setDoInput(true);
-      ucon.setDoOutput(true);
-      ucon.setConnectTimeout(TIMEOUT);
-      ucon.setRequestProperty("Content-Type", "application/json; charset=utf-8");
-      ucon.setRequestProperty("Accept", "application/json; charset=utf-8");
+    public static boolean postMessage(Message message) {
+        try {
+            URL url = new URL(url_rpc+"/entity.message/create");
+            HttpURLConnection ucon = (HttpURLConnection) url.openConnection();
+            ucon.setRequestMethod("POST");
+            ucon.setDoInput(true);
+            ucon.setDoOutput(true);
+            ucon.setConnectTimeout(TIMEOUT);
+            ucon.setRequestProperty("Content-Type", "application/json; charset=utf-8");
+            ucon.setRequestProperty("Accept", "application/json; charset=utf-8");
 
-      PrintWriter out = new PrintWriter(ucon.getOutputStream(), true);
-      out.println(gson.toJson(message));
+            PrintWriter out = new PrintWriter(ucon.getOutputStream(), true);
+            out.println(gson.toJson(message));
 
-      ucon.connect();
+            ucon.connect();
 
-      BufferedReader in = new BufferedReader(new InputStreamReader(ucon.getInputStream()));
-      String line;
-      System.out.println("reply:");
-      while ((line = in.readLine()) != null) {
-        System.out.println(line);
-      }
+            BufferedReader in = new BufferedReader(new InputStreamReader(ucon.getInputStream()));
+            String line;
+            System.out.println("reply:");
+            while ((line = in.readLine()) != null) {
+                System.out.println(line);
+            }
 
-      in.close();
-      out.close();
-      ucon.getInputStream().close();
+            in.close();
+            out.close();
+            ucon.getInputStream().close();
 
-      return true;
+            return true;
 
-    } catch (Exception e) {
-      e.printStackTrace();
-      return false;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
-  }
-  public static List<Message> retrieveMessages(int from, int to) {
-    try {
-      URL url = new URL(url_rpc+"/entity.message/users/"+from+"/"+to);
-      HttpURLConnection ucon = (HttpURLConnection) url.openConnection();
-      ucon.setRequestMethod("GET");
-      ucon.setDoInput(true);
-      ucon.setConnectTimeout(TIMEOUT);
-      ucon.setRequestProperty("Content-Type", "application/json; charset=utf-8");
-      ucon.setRequestProperty("Accept", "application/json; charset=utf-8");
+    public static List<Message> retrieveMessages(int from, int to) {
+        try {
+            URL url = new URL(url_rpc+"/entity.message/users/"+from+"/"+to);
+            HttpURLConnection ucon = (HttpURLConnection) url.openConnection();
+            ucon.setRequestMethod("GET");
+            ucon.setDoInput(true);
+            ucon.setConnectTimeout(TIMEOUT);
+            ucon.setRequestProperty("Content-Type", "application/json; charset=utf-8");
+            ucon.setRequestProperty("Accept", "application/json; charset=utf-8");
 
-      ucon.connect();
+            ucon.connect();
 
-      BufferedReader in = new BufferedReader(new InputStreamReader(ucon.getInputStream()));
-      Message[] messageArray = gson.fromJson(in, Message[].class);
-      List<Message> messages = new ArrayList<Message>();
-      messages.addAll(Arrays.asList(messageArray));
+            BufferedReader in = new BufferedReader(new InputStreamReader(ucon.getInputStream()));
+            Message[] messageArray = gson.fromJson(in, Message[].class);
+            List<Message> messages = new ArrayList<Message>();
+            messages.addAll(Arrays.asList(messageArray));
 
-      in.close();
-      ucon.getInputStream().close();
+            in.close();
+            ucon.getInputStream().close();
 
-      return messages;
+            return messages;
 
-    } catch (Exception e) {
-      e.printStackTrace();
-      return null;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
-  }
-  public static List<Message> retrieveNewMessages(int from, int to, Message message) {
-    try {
-      URL url = new URL(url_rpc+"/entity.message/users/"+from+"/"+to);
-      HttpURLConnection ucon = (HttpURLConnection) url.openConnection();
-      ucon.setRequestMethod("POST");
-      ucon.setDoInput(true);
-      ucon.setDoOutput(true);
-      ucon.setConnectTimeout(TIMEOUT);
-      ucon.setRequestProperty("Content-Type", "application/json; charset=utf-8");
-      ucon.setRequestProperty("Accept", "application/json; charset=utf-8");
+    public static List<Message> retrieveNewMessages(int from, int to, Message message) {
+        try {
+            URL url = new URL(url_rpc+"/entity.message/users/"+from+"/"+to);
+            HttpURLConnection ucon = (HttpURLConnection) url.openConnection();
+            ucon.setRequestMethod("POST");
+            ucon.setDoInput(true);
+            ucon.setDoOutput(true);
+            ucon.setConnectTimeout(TIMEOUT);
+            ucon.setRequestProperty("Content-Type", "application/json; charset=utf-8");
+            ucon.setRequestProperty("Accept", "application/json; charset=utf-8");
 
-      PrintWriter out = new PrintWriter(ucon.getOutputStream(), true);
-      out.println(gson.toJson(message));
+            PrintWriter out = new PrintWriter(ucon.getOutputStream(), true);
+            out.println(gson.toJson(message));
 
-      ucon.connect();
+            ucon.connect();
 
-      BufferedReader in = new BufferedReader(new InputStreamReader(ucon.getInputStream()));
-      Message[] messageArray = gson.fromJson(in, Message[].class);
-      List<Message> messages = new ArrayList<Message>();
-      messages.addAll(Arrays.asList(messageArray));
+            BufferedReader in = new BufferedReader(new InputStreamReader(ucon.getInputStream()));
+            Message[] messageArray = gson.fromJson(in, Message[].class);
+            List<Message> messages = new ArrayList<Message>();
+            messages.addAll(Arrays.asList(messageArray));
 
-      in.close();
-      out.close();
-      ucon.getInputStream().close();
+            in.close();
+            out.close();
+            ucon.getInputStream().close();
 
-      return messages;
+            return messages;
 
-    } catch (Exception e) {
-      e.printStackTrace();
-      return null;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
-  }
 }

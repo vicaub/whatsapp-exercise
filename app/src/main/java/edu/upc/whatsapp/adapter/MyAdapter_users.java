@@ -21,7 +21,6 @@ import java.util.List;
  * @author upcnet
  */
 public class MyAdapter_users extends BaseAdapter {
-
     Context context;
     public List<UserInfo> users;
 

@@ -8,24 +8,24 @@ import android.widget.Button;
 
 public class a_WelcomeActivity extends Activity implements View.OnClickListener {
 
-  @Override
-  public void onCreate(Bundle icicle) {
-    super.onCreate(icicle);
+    @Override
+    public void onCreate(Bundle icicle) {
+        super.onCreate(icicle);
 
-    setContentView(R.layout.a_welcome);
+        setContentView(R.layout.a_welcome);
 
-    ((Button) findViewById(R.id.welcomeLoginButton)).setOnClickListener(this);
-    ((Button) findViewById(R.id.welcomeRegisterButton)).setOnClickListener(this);
-  }
-
-  public void onClick(View arg0) {
-
-    if (arg0 == findViewById(R.id.welcomeLoginButton)) {
-      startActivity(new Intent(this, b_LoginActivity.class));
+        ((Button) findViewById(R.id.welcomeLoginButton)).setOnClickListener(this);
+        ((Button) findViewById(R.id.welcomeRegisterButton)).setOnClickListener(this);
     }
-    if (arg0 == findViewById(R.id.welcomeRegisterButton)) {
-      startActivity(new Intent(this, c_RegistrationActivity.class));
+
+    public void onClick(View arg0) {
+
+        if (arg0 == findViewById(R.id.welcomeLoginButton)) {
+            startActivity(new Intent(this, b_LoginActivity.class));
+        }
+        if (arg0 == findViewById(R.id.welcomeRegisterButton)) {
+            startActivity(new Intent(this, c_RegistrationActivity.class));
+        }
     }
-  }
 
 }

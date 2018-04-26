@@ -20,79 +20,78 @@ import entity.UserInfo;
 
 public class c_RegistrationActivity extends Activity implements View.OnClickListener {
 
-  _GlobalState globalState;
-  ProgressDialog progressDialog;
-  User user;
-  OperationPerformer operationPerformer;
+    _GlobalState globalState;
+    ProgressDialog progressDialog;
+    User user;
+    OperationPerformer operationPerformer;
+    Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
 
-  @Override
-  public void onCreate(Bundle icicle) {
-    super.onCreate(icicle);
-    globalState = (_GlobalState)getApplication();
-    setContentView(R.layout.c_registration);
-    ((Button) findViewById(R.id.editregistrationButton)).setOnClickListener(this);
-  }
+            operationPerformer = null;
+            progressDialog.dismiss();
 
-  public void onClick(View arg0) {
-    if (arg0 == findViewById(R.id.editregistrationButton)) {
+            UserInfo userInfo = (UserInfo) msg.getData().getSerializable("userInfo");
 
-      //...
+            if (userInfo.getId() >= 0) {
+                toastShow("Registration successful");
 
-      progressDialog = ProgressDialog.show(this, "RegistrationActivity", "Registering for service...");
-      // if there's still a running thread doing something, we don't create a new one
-      if (operationPerformer == null) {
-        operationPerformer = new OperationPerformer();
-        operationPerformer.start();
-      }
-    }
-  }
+                //...
 
-  private class OperationPerformer extends Thread {
+                finish();
+            }
+            else if (userInfo.getId() == -1) {
+                toastShow("Registration unsuccessful,\nlogin already used by another user");
+            }
+            else if (userInfo.getId() == -2) {
+                toastShow("Not registered, connection problem due to: " + userInfo.getName());
+                System.out.println("--------------------------------------------------");
+                System.out.println("error!!!");
+                System.out.println(userInfo.getName());
+                System.out.println("--------------------------------------------------");
+            }
+        }
+    };
 
     @Override
-    public void run() {
-      Message msg = handler.obtainMessage();
-      Bundle b = new Bundle();
-
-      //...
-
-      msg.setData(b);
-      handler.sendMessage(msg);
+    public void onCreate(Bundle icicle) {
+        super.onCreate(icicle);
+        globalState = (_GlobalState)getApplication();
+        setContentView(R.layout.c_registration);
+        ((Button) findViewById(R.id.editregistrationButton)).setOnClickListener(this);
     }
-  }
 
-  Handler handler = new Handler() {
-    @Override
-    public void handleMessage(Message msg) {
+    public void onClick(View arg0) {
+        if (arg0 == findViewById(R.id.editregistrationButton)) {
 
-      operationPerformer = null;
-      progressDialog.dismiss();
+            //...
 
-      UserInfo userInfo = (UserInfo) msg.getData().getSerializable("userInfo");
-
-      if (userInfo.getId() >= 0) {
-        toastShow("Registration successful");
-
-        //...
-
-        finish();
-      }
-      else if (userInfo.getId() == -1) {
-        toastShow("Registration unsuccessful,\nlogin already used by another user");
-      }
-      else if (userInfo.getId() == -2) {
-        toastShow("Not registered, connection problem due to: " + userInfo.getName());
-        System.out.println("--------------------------------------------------");
-        System.out.println("error!!!");
-        System.out.println(userInfo.getName());
-        System.out.println("--------------------------------------------------");
-      }
+            progressDialog = ProgressDialog.show(this, "RegistrationActivity", "Registering for service...");
+            // if there's still a running thread doing something, we don't create a new one
+            if (operationPerformer == null) {
+                operationPerformer = new OperationPerformer();
+                operationPerformer.start();
+            }
+        }
     }
-  };
 
-  private void toastShow(String text) {
-    Toast toast = Toast.makeText(this, text, Toast.LENGTH_LONG);
-    toast.setGravity(0, 0, 200);
-    toast.show();
-  }
+    private void toastShow(String text) {
+        Toast toast = Toast.makeText(this, text, Toast.LENGTH_LONG);
+        toast.setGravity(0, 0, 200);
+        toast.show();
+    }
+
+    private class OperationPerformer extends Thread {
+
+        @Override
+        public void run() {
+            Message msg = handler.obtainMessage();
+            Bundle b = new Bundle();
+
+            //...
+
+            msg.setData(b);
+            handler.sendMessage(msg);
+        }
+    }
 }
