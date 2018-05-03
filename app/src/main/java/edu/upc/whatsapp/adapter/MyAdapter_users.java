@@ -25,8 +25,8 @@ public class MyAdapter_users extends BaseAdapter {
     public List<UserInfo> users;
 
     public MyAdapter_users(Context context, List<UserInfo> users) {
-      this.context = context;
-      this.users = users;
+        this.context = context;
+        this.users = users;
     }
 
     public int getCount() {
@@ -34,13 +34,17 @@ public class MyAdapter_users extends BaseAdapter {
     }
 
     public View getView(int position, View convertView, ViewGroup parent) {
-      if (convertView == null) {
-        convertView = LayoutInflater.from(context).inflate(R.layout.row_twotextviews, parent, false);
-      }
+        if (convertView == null) {
+            convertView = LayoutInflater.from(context).inflate(R.layout.row_twotextviews, parent, false);
+        }
 
-      //...
+//        TextView nameView = (TextView) LayoutInflater.inflate(R.layout.row_twotextviews_name, parent, false);
+//
+//        ((TextView) convertView.findViewById(R.id.row_twotextviews_name)).setText(users.get(position).getName());
+//        ((TextView) convertView.findViewById(R.id.row_twotextviews_surname)).setText(users.get(position).getSurname());
 
-      return convertView;
+
+        return convertView;
     }
 
     public Object getItem(int arg0) {

@@ -3,6 +3,7 @@ package edu.upc.whatsapp;
 import edu.upc.whatsapp.comms.RPC;
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -35,13 +36,26 @@ public class b_LoginActivity extends Activity implements View.OnClickListener {
 
             String login = ((EditText) findViewById(R.id.login_login)).getText().toString();
             String password = ((EditText) findViewById(R.id.login_password)).getText().toString();
-            this.user = new User(login, password);
+            boolean ready = true;
 
-            progressDialog = ProgressDialog.show(this, "LoginActivity", "Loging into the server...");
-            // if there's still a running thread doing something, we don't create a new one
-            if (operationPerformer == null) {
-                operationPerformer = new OperationPerformer();
-                operationPerformer.start();
+            if (login.length() == 0) {
+                ((EditText) findViewById(R.id.login_login)).setError("This field must be filled");
+                ready = false;
+            }
+            if (password.length() == 0) {
+                ((EditText) findViewById(R.id.login_password)).setError("This field must be filled");
+                ready = false;
+            }
+
+            if (ready) {
+                this.user = new User(login, password);
+
+                progressDialog = ProgressDialog.show(this, "LoginActivity", "Loging into the server...");
+                // if there's still a running thread doing something, we don't create a new one
+                if (operationPerformer == null) {
+                    operationPerformer = new OperationPerformer();
+                    operationPerformer.start();
+                }
             }
         }
     }
@@ -74,7 +88,8 @@ public class b_LoginActivity extends Activity implements View.OnClickListener {
             if (userInfo.getId() >= 0) {
                 toastShow("Login successful");
 
-                //...
+                Intent myIntent = new Intent(globalState, d_UsersListActivity.class);
+                startActivity(myIntent);
 
                 finish();
             }
@@ -84,7 +99,6 @@ public class b_LoginActivity extends Activity implements View.OnClickListener {
             else if (userInfo.getId() == -2){
                 toastShow("Not logged in, connection problem due to: " + userInfo.getName());
             }
-
         }
     };
 

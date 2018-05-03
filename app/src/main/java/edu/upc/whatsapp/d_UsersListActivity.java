@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -46,10 +47,11 @@ public class d_UsersListActivity extends Activity implements ListView.OnItemClic
         @Override
         protected List<UserInfo> doInBackground(Void... nothing) {
 
-            //...
+            List<UserInfo> userInfos = RPC.allUserInfos();
+            Log.d("userInfos", userInfos.toString());
 
             //remove this sentence on completing the code:
-            return null;
+            return userInfos;
 
         }
 
@@ -59,9 +61,7 @@ public class d_UsersListActivity extends Activity implements ListView.OnItemClic
             if (users == null) {
                 toastShow("There's been an error downloading the users");
             } else {
-
-                //...
-
+                adapter = new MyAdapter_users(globalState, users);
             }
         }
     }
