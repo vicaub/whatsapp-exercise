@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -64,7 +65,20 @@ public class c_RegistrationActivity extends Activity implements View.OnClickList
     public void onClick(View arg0) {
         if (arg0 == findViewById(R.id.register_button)) {
 
-            //...
+            String login = ((EditText) findViewById(R.id.registration_login)).getText().toString();
+            String password = ((EditText) findViewById(R.id.registration_password)).getText().toString();
+            String name = ((EditText) findViewById(R.id.registration_name)).getText().toString();
+            String surname = ((EditText) findViewById(R.id.registration_surname)).getText().toString();
+            String email = ((EditText) findViewById(R.id.registration_email)).getText().toString();
+
+            this.user = new User();
+            UserInfo userInfo = new UserInfo();
+            userInfo.setName(name);
+            userInfo.setSurname(surname);
+            user.setEmail(email);
+            user.setLogin(login);
+            user.setPassword(password);
+            user.setUserInfo(userInfo);
 
             progressDialog = ProgressDialog.show(this, "RegistrationActivity", "Registering for service...");
             // if there's still a running thread doing something, we don't create a new one
@@ -88,7 +102,9 @@ public class c_RegistrationActivity extends Activity implements View.OnClickList
             Message msg = handler.obtainMessage();
             Bundle b = new Bundle();
 
-            //...
+            UserInfo userInfo = RPC.registration(user);
+            Log.d("userInfo", userInfo.toString());
+            b.putSerializable("userInfo", userInfo);
 
             msg.setData(b);
             handler.sendMessage(msg);

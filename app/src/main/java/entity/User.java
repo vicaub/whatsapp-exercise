@@ -90,7 +90,12 @@ public class User {
 
     @Override
     public String toString() {
-        return "entity.User[ id=" + id + " ]";
+        return "User{" +
+                "id=" + id +
+                ", login='" + login + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                ", userInfo=" + userInfo +
+                '}';
     }
-
 }

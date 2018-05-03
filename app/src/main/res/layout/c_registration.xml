@@ -24,7 +24,7 @@
             android:textSize="@dimen/title_size" />
 
         <EditText
-            android:id="@+id/login_input"
+            android:id="@+id/registration_login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/standard_margin"
@@ -45,7 +45,7 @@
             android:textSize="@dimen/title_size" />
 
         <EditText
-            android:id="@+id/password_input"
+            android:id="@+id/registration_password"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/standard_margin"
@@ -66,7 +66,7 @@
             android:textSize="@dimen/title_size" />
 
         <EditText
-            android:id="@+id/name_input"
+            android:id="@+id/registration_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/standard_margin"
@@ -87,7 +87,7 @@
             android:textSize="@dimen/title_size" />
 
         <EditText
-            android:id="@+id/surname_input"
+            android:id="@+id/registration_surname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/standard_margin"
@@ -108,7 +108,7 @@
             android:textSize="@dimen/title_size" />
 
         <EditText
-            android:id="@+id/email_input"
+            android:id="@+id/registration_email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/standard_margin"

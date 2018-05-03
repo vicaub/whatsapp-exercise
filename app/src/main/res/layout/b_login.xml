@@ -22,7 +22,7 @@
         android:textSize="@dimen/title_size" />
 
     <EditText
-        android:id="@+id/login_input_2"
+        android:id="@+id/login_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
@@ -38,7 +38,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/login_input_2"
+        android:layout_below="@+id/login_login"
         android:layout_marginLeft="@dimen/standard_margin"
         android:layout_marginRight="@dimen/standard_margin"
         android:layout_marginTop="@dimen/big_margin"
@@ -47,7 +47,7 @@
         android:textSize="@dimen/title_size" />
 
     <EditText
-        android:id="@+id/password_input_2"
+        android:id="@+id/login_password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
@@ -63,7 +63,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/password_input_2"
+        android:layout_below="@+id/login_password"
         android:layout_marginBottom="@dimen/standard_margin"
         android:layout_marginLeft="@dimen/standard_margin"
         android:layout_marginRight="@dimen/standard_margin"

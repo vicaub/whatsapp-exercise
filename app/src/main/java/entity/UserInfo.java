@@ -76,7 +76,10 @@ public class UserInfo implements Serializable {
 
     @Override
     public String toString() {
-        return "entity.UserInfo[ id=" + id + " ]";
+        return "UserInfo{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                '}';
     }
-
 }

@@ -3,7 +3,6 @@ package edu.upc.whatsapp;
 import edu.upc.whatsapp.comms.RPC;
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -13,9 +12,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import java.io.Serializable;
-
-import edu.upc.whatsapp.service.PushService;
 import entity.User;
 import entity.UserInfo;
 
@@ -37,17 +33,11 @@ public class b_LoginActivity extends Activity implements View.OnClickListener {
     public void onClick(View arg0) {
         if (arg0 == findViewById(R.id.login_button)) {
 
+            String login = ((EditText) findViewById(R.id.login_login)).getText().toString();
+            String password = ((EditText) findViewById(R.id.login_password)).getText().toString();
+            this.user = new User(login, password);
 
-            String login = ((EditText) findViewById(R.id.login_input_2)).getText().toString();
-            String passwrod = ((EditText) findViewById(R.id.password_input_2)).getText().toString();
-
-            this.user = new User(login, passwrod);
-
-            UserInfo userInfo = RPC.login(this.user);
-
-            Log.d("userInfo", userInfo.toString());
-
-            progressDialog = ProgressDialog.show(this, "LoginActivity", "Logging into the server...");
+            progressDialog = ProgressDialog.show(this, "LoginActivity", "Loging into the server...");
             // if there's still a running thread doing something, we don't create a new one
             if (operationPerformer == null) {
                 operationPerformer = new OperationPerformer();
@@ -62,7 +52,11 @@ public class b_LoginActivity extends Activity implements View.OnClickListener {
         public void run() {
             Message msg = handler.obtainMessage();
             Bundle b = new Bundle();
-            b.putSerializable("userInfo", super.);
+
+            UserInfo userInfo = RPC.login(user);
+            Log.d("userInfo", userInfo.toString());
+            b.putSerializable("userInfo", userInfo);
+
             msg.setData(b);
             handler.sendMessage(msg);
         }
