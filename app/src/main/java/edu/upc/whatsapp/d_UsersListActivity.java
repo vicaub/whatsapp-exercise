@@ -19,6 +19,7 @@ public class d_UsersListActivity extends Activity implements ListView.OnItemClic
 
     _GlobalState globalState;
     MyAdapter_users adapter;
+    ListView userList;
     ProgressDialog progressDialog;
 
     @Override
@@ -26,14 +27,17 @@ public class d_UsersListActivity extends Activity implements ListView.OnItemClic
         super.onCreate(savedInstanceState);
         globalState = (_GlobalState) getApplication();
         setContentView(R.layout.d_userslist);
+        userList = (ListView) findViewById(R.id.listView);
+        userList.setOnItemClickListener(this);
         new DownloadUsers_Task().execute();
     }
 
     @Override
     public void onItemClick(AdapterView<?> l, View v, int position, long id) {
-
-        //...
-
+        globalState.user_to_talk_to = (UserInfo) adapter.getItem(position);
+        Log.d("User Selected", globalState.user_to_talk_to.toString());
+        Intent myIntent = new Intent(this, e_MessagesActivity.class);
+        startActivity(myIntent);
     }
 
     private class DownloadUsers_Task extends AsyncTask<Void, Void, List<UserInfo>> {
@@ -46,13 +50,10 @@ public class d_UsersListActivity extends Activity implements ListView.OnItemClic
 
         @Override
         protected List<UserInfo> doInBackground(Void... nothing) {
-
             List<UserInfo> userInfos = RPC.allUserInfos();
-            Log.d("userInfos", userInfos.toString());
+            Log.d("User List", userInfos.toString());
 
-            //remove this sentence on completing the code:
             return userInfos;
-
         }
 
         @Override
@@ -62,6 +63,7 @@ public class d_UsersListActivity extends Activity implements ListView.OnItemClic
                 toastShow("There's been an error downloading the users");
             } else {
                 adapter = new MyAdapter_users(globalState, users);
+                userList.setAdapter(adapter);
             }
         }
     }

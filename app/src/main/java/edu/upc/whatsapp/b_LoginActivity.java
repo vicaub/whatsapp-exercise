@@ -88,6 +88,7 @@ public class b_LoginActivity extends Activity implements View.OnClickListener {
             if (userInfo.getId() >= 0) {
                 toastShow("Login successful");
 
+                globalState.my_user = userInfo;
                 Intent myIntent = new Intent(globalState, d_UsersListActivity.class);
                 startActivity(myIntent);
 

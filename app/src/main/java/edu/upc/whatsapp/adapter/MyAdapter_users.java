@@ -38,20 +38,20 @@ public class MyAdapter_users extends BaseAdapter {
             convertView = LayoutInflater.from(context).inflate(R.layout.row_twotextviews, parent, false);
         }
 
-//        TextView nameView = (TextView) LayoutInflater.inflate(R.layout.row_twotextviews_name, parent, false);
-//
-//        ((TextView) convertView.findViewById(R.id.row_twotextviews_name)).setText(users.get(position).getName());
-//        ((TextView) convertView.findViewById(R.id.row_twotextviews_surname)).setText(users.get(position).getSurname());
+        TextView nameView = (TextView) convertView.findViewById(R.id.row_twotextviews_name);
+        nameView.setText(users.get(position).getName());
 
+        TextView surnameView = (TextView) convertView.findViewById(R.id.row_twotextviews_surname);
+        surnameView.setText(users.get(position).getSurname());
 
         return convertView;
     }
 
     public Object getItem(int arg0) {
-      return users.get(arg0);
+        return users.get(arg0);
     }
 
     public long getItemId(int arg0) {
-      return users.get(arg0).getId();
+        return users.get(arg0).getId();
     }
-  }
+}
