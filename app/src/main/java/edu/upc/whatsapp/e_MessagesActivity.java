@@ -124,6 +124,7 @@ public class e_MessagesActivity extends Activity {
         }
     }
 
+    
     public void sendText(final View view) {
 
         //...
