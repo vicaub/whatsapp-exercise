@@ -54,6 +54,9 @@ public class e_MessagesActivity extends Activity {
         setup_input_text();
 
         new fetchAllMessages_Task().execute(globalState.my_user.getId(), globalState.user_to_talk_to.getId());
+
+        timer = new Timer();
+        timer.schedule(new fetchNewMessagesTimerTask(), 5000);
     }
 
     @Override
@@ -82,6 +85,7 @@ public class e_MessagesActivity extends Activity {
 
         @Override
         protected List<Message> doInBackground(Integer... userIds) {
+            Log.d("Fetching messages",  userIds[0] + " " + userIds[1]);
             List<Message> all_messages = RPC.retrieveMessages(userIds[0], userIds[1]);
             Log.d("Messages", all_messages.toString());
             return all_messages;
@@ -104,11 +108,16 @@ public class e_MessagesActivity extends Activity {
 
         @Override
         protected List<Message> doInBackground(Integer... userIds) {
+            Message lastMessage;
+            if (adapter.isEmpty()) {
+                lastMessage = new Message();
+                lastMessage.setDate(new Date(0));
+            } else {
+                lastMessage = adapter.getLastMessage();
+            }
+            List<Message> newMessages = RPC.retrieveNewMessages(globalState.my_user.getId(), globalState.user_to_talk_to.getId(), lastMessage);
 
-            //...
-
-            //remove this sentence on completing the code:
-            return null;
+            return newMessages;
         }
 
         @Override
@@ -118,16 +127,19 @@ public class e_MessagesActivity extends Activity {
             } else {
                 toastShow(new_messages.size()+" new message/s downloaded");
 
-                //...
-
+                adapter.addMessages(new_messages);
             }
         }
     }
 
-    
     public void sendText(final View view) {
+        Message newMessage = new Message();
+        newMessage.setDate(new Date());
+        newMessage.setUserSender(globalState.my_user);
+        newMessage.setUserReceiver(globalState.user_to_talk_to);
+        newMessage.setContent(input_text.getText().toString());
 
-        //...
+        new SendMessage_Task().execute(newMessage);
 
         input_text.setText("");
 
@@ -145,20 +157,18 @@ public class e_MessagesActivity extends Activity {
 
         @Override
         protected Boolean doInBackground(Message... messages) {
+            for (Message message : messages) {
+                RPC.postMessage(message);
+            }
 
-            //...
-
-            //remove this sentence on completing the code:
-            return false;
+            return true;
         }
 
         @Override
         protected void onPostExecute(Boolean resultOk) {
             if (resultOk) {
                 toastShow("message sent");
-
-                //...
-
+                new fetchNewMessages_Task().execute();
             } else {
                 toastShow("There's been an error sending the message");
             }
@@ -169,9 +179,7 @@ public class e_MessagesActivity extends Activity {
 
         @Override
         public void run() {
-
-            //...
-
+            new fetchNewMessages_Task().execute();
         }
     }
 

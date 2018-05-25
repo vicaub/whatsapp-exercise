@@ -1,6 +1,7 @@
 package edu.upc.whatsapp.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -65,7 +66,6 @@ public class MyAdapter_messages extends BaseAdapter {
     }
 
     public View getView(int position, View convertView, ViewGroup parent) {
-
         if (convertView == null) {
             if (getItemViewType(position) == 0) {
                 convertView = LayoutInflater.from(mContext).inflate(R.layout.row_whatsapp_right_bubble, parent, false);
@@ -100,10 +100,11 @@ public class MyAdapter_messages extends BaseAdapter {
 
     @Override
     public int getItemViewType(int position) {
-        if (messages.get(position).getUserReceiver() == my_user) {
-            return 1;
-        } else {
+        if (!messages.get(position).getUserReceiver().equals(my_user) ||
+                messages.get(position).getUserReceiver().equals(messages.get(position).getUserSender())) {
             return 0;
+        } else {
+            return 1;
         }
     }
 

@@ -14,8 +14,8 @@
         android:layout_marginLeft="10dip"
         android:layout_marginTop="10dip"
         android:focusable="true"
-        android:text="WhatsApp Aplication"
-        android:textSize="28sp"/>
+        android:text="Whatsapp Victor Aubin"
+        android:textSize="28sp" />
 
     <ImageView
         android:id="@+id/welcomeLogoImageView"
