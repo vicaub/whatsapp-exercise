@@ -22,10 +22,20 @@ import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 import android.widget.Toast;
 
+import org.glassfish.tyrus.client.ClientManager;
+
+import java.net.URI;
 import java.util.Date;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import javax.websocket.ClientEndpointConfig;
+import javax.websocket.CloseReason;
+import javax.websocket.Endpoint;
+import javax.websocket.EndpointConfig;
+import javax.websocket.MessageHandler;
+import javax.websocket.Session;
 
 import edu.upc.whatsapp.comms.RPC;
 import edu.upc.whatsapp.adapter.MyAdapter_messages;
@@ -55,8 +65,9 @@ public class e_MessagesActivity extends Activity {
 
         new fetchAllMessages_Task().execute(globalState.my_user.getId(), globalState.user_to_talk_to.getId());
 
-        timer = new Timer();
-        timer.schedule(new fetchNewMessagesTimerTask(), 5000);
+        // timer = new Timer();
+        // timer.schedule(new fetchNewMessagesTimerTask(), 5000);
+        connectToServer();
     }
 
     @Override
@@ -249,6 +260,43 @@ public class e_MessagesActivity extends Activity {
                 }
             }
         });
+    }
+
+    public class WebSocketService extends Endpoint {
+
+        @Override
+        public void onOpen(Session session, EndpointConfig EndpointConfig) {
+            session.addMessageHandler(new MessageHandler.Whole<String>() {
+                @Override
+                public void onMessage(String message) {
+                    Message newMessage = new Message();
+                    newMessage.setDate(new Date());
+                    newMessage.setUserSender(globalState.my_user);
+                    newMessage.setUserReceiver(globalState.user_to_talk_to);
+                    newMessage.setContent(message);
+                    adapter.addMessage(newMessage);
+                }
+            });
+            //...
+        }
+
+        @Override
+        public void onError(Session session, Throwable t) {
+            toastShow("There was an error during receiving a message");
+        }
+        @Override
+        public void onClose(Session session, CloseReason closeReason) {
+           toastShow("Disconnected");
+        }
+    }
+
+
+    private void connectToServer(){ try {
+        ClientManager client = ClientManager.createClient();
+        client.connectToServer(new WebSocketService(), ClientEndpointConfig.Builder.create().build(), URI.create("ws://10.0.2.2:8080/WhatsAppServer/push"));
+    }
+    catch (Exception e) {
+        Log.e("WebSocketService", e.toString()); }
     }
 
     private void toastShow(String text) {
