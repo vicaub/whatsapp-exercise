@@ -84,7 +84,12 @@ public class Message {
 
     @Override
     public String toString() {
-        return "entity.Message[ id=" + id + " ]";
+        return "Message{" +
+                "id=" + id +
+                ", content='" + content + '\'' +
+                ", date=" + date +
+                ", userReceiver=" + userReceiver +
+                ", userSender=" + userSender +
+                '}';
     }
-
 }

@@ -8,6 +8,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
@@ -48,6 +49,7 @@ public class e_MessagesActivity extends Activity {
         setContentView(R.layout.e_messages);
         globalState = (_GlobalState) getApplication();
         TextView title = (TextView) findViewById(R.id.title);
+        conversation = (ListView) findViewById(R.id.conversation);
         title.setText("Talking with: " + globalState.user_to_talk_to.getName());
         setup_input_text();
 
@@ -80,11 +82,9 @@ public class e_MessagesActivity extends Activity {
 
         @Override
         protected List<Message> doInBackground(Integer... userIds) {
-
-            //...
-
-            //remove this sentence on completing the code:
-            return null;
+            List<Message> all_messages = RPC.retrieveMessages(userIds[0], userIds[1]);
+            Log.d("Messages", all_messages.toString());
+            return all_messages;
         }
 
         @Override
@@ -94,9 +94,8 @@ public class e_MessagesActivity extends Activity {
                 toastShow("There's been an error downloading the messages");
             } else {
                 toastShow(all_messages.size()+" messages downloaded");
-
-                //...
-
+                adapter = new MyAdapter_messages(globalState, all_messages, globalState.my_user);
+                conversation.setAdapter(adapter);
             }
         }
     }
@@ -135,6 +134,7 @@ public class e_MessagesActivity extends Activity {
         InputMethodManager inMgr = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         inMgr.hideSoftInputFromWindow(input_text.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
     }
+
     private class SendMessage_Task extends AsyncTask<Message, Void, Boolean> {
 
         @Override

@@ -44,15 +44,18 @@ public class MyAdapter_messages extends BaseAdapter {
         messages.add(new_message);
         set_date_visibility(new_message);
     }
+
     public void addMessages(List<Message> new_messages){
         for(Message new_message : new_messages){
             messages.add(new_message);
             set_date_visibility(new_message);
         }
     }
+
     public boolean isEmpty(){
         return messages.isEmpty();
     }
+
     public Message getLastMessage(){
         return messages.get(messages.size() - 1);
     }
@@ -79,10 +82,9 @@ public class MyAdapter_messages extends BaseAdapter {
             convertView.findViewById(R.id.row_date).setVisibility(View.VISIBLE);
         else
             convertView.findViewById(R.id.row_date).setVisibility(View.GONE);
+
         ((TextView) convertView.findViewById(R.id.row_date)).setText(sdf.format(date));
-
-        //...
-
+        ((TextView) convertView.findViewById(R.id.row_content)).setText(messages.get(position).getContent());
         ((TextView) convertView.findViewById(R.id.row_hour)).setText(sdf2.format(date));
 
         return convertView;
@@ -98,11 +100,11 @@ public class MyAdapter_messages extends BaseAdapter {
 
     @Override
     public int getItemViewType(int position) {
-
-        //...
-
-        //remove this sentence on completing the code:
-        return -1;
+        if (messages.get(position).getUserReceiver() == my_user) {
+            return 1;
+        } else {
+            return 0;
+        }
     }
 
     @Override
