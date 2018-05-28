@@ -66,7 +66,7 @@ public class e_MessagesActivity extends Activity {
         new fetchAllMessages_Task().execute(globalState.my_user.getId(), globalState.user_to_talk_to.getId());
 
         // timer = new Timer();
-        // timer.schedule(new fetchNewMessagesTimerTask(), 5000);
+        // timer.schedule(new fetchNewMessagesTimerTask(), 5000, 5000);
         connectToServer();
     }
 
@@ -108,7 +108,9 @@ public class e_MessagesActivity extends Activity {
             if (all_messages == null) {
                 toastShow("There's been an error downloading the messages");
             } else {
-                toastShow(all_messages.size()+" messages downloaded");
+                if (all_messages.size() != 0) {
+                    toastShow(all_messages.size()+" messages downloaded");
+                }
                 adapter = new MyAdapter_messages(globalState, all_messages, globalState.my_user);
                 conversation.setAdapter(adapter);
             }
@@ -136,8 +138,10 @@ public class e_MessagesActivity extends Activity {
             if (new_messages == null) {
                 toastShow("There's been an error downloading new messages");
             } else {
-                toastShow(new_messages.size()+" new message/s downloaded");
-
+                if (new_messages.size() != 0) {
+                    toastShow(new_messages.size()+" new message/s downloaded");
+                }
+                Log.d("new_messages", new_messages.toString());
                 adapter.addMessages(new_messages);
             }
         }
@@ -190,6 +194,7 @@ public class e_MessagesActivity extends Activity {
 
         @Override
         public void run() {
+            Log.d("fetchNewMessagesTimer", new Date().toString());
             new fetchNewMessages_Task().execute();
         }
     }
@@ -266,6 +271,7 @@ public class e_MessagesActivity extends Activity {
 
         @Override
         public void onOpen(Session session, EndpointConfig EndpointConfig) {
+            Log.d("WebSocketService", "onOpen()");
             session.addMessageHandler(new MessageHandler.Whole<String>() {
                 @Override
                 public void onMessage(String message) {
