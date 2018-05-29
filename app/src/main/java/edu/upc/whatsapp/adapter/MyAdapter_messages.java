@@ -78,10 +78,14 @@ public class MyAdapter_messages extends BaseAdapter {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy MMM dd");
         SimpleDateFormat sdf2 = new SimpleDateFormat("HH:mm");
         Date date = messages.get(position).getDate();
-        if(date_visibility.get(position)==View.VISIBLE)
+        if(date_visibility.get(position)==View.VISIBLE) {
+            // Log.d("date_visibility", "VISIBLE");
             convertView.findViewById(R.id.row_date).setVisibility(View.VISIBLE);
-        else
+        }
+        else {
+            // Log.d("date_visibility", "GONE");
             convertView.findViewById(R.id.row_date).setVisibility(View.GONE);
+        }
 
         ((TextView) convertView.findViewById(R.id.row_date)).setText(sdf.format(date));
         ((TextView) convertView.findViewById(R.id.row_content)).setText(messages.get(position).getContent());
